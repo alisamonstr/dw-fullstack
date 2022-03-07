@@ -1,0 +1,21 @@
+service: dw-fullstack
+
+provider:
+  name: aws
+  region: eu-west-1
+  runtime: nodejs14.x
+  stage: dev
+
+functions:
+  products:
+    handler: src/handler.products
+    events:
+      - http: GET /
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    httpPort: 4000
