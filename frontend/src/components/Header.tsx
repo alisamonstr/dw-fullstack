@@ -16,19 +16,20 @@ const Content = styled(ContentWrapper)`
   height: 50px;
 `
 const Item = styled.div<StyledItemProps>`
-  padding: 20px 10px;
+  padding: ${(props) => (props.isActive ? '20px 10px 4px' : '20px 10px 5px')};
+  margin-bottom: 10px;
   text-transform: uppercase;
   color: white;
   cursor: pointer;
-  //border-bottom: ${(props) => (props.isActive ? '1px white' : '')};
+  border-bottom: ${(props) => (props.isActive ? '1px solid  white' : '')};
 `
 
-interface ComponentProps {
+interface HeaderProps {
   setActiveCategory: (value: CategoryType) => void
   activeCategory: CategoryType
 }
 
-export const Header: FC<ComponentProps> = memo(
+export const Header: FC<HeaderProps> = memo(
   ({ setActiveCategory, activeCategory }) => {
     return (
       <ComponentContainer>

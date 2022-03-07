@@ -1,6 +1,7 @@
-import { FC, memo, useMemo } from 'react'
+import { FC, memo } from 'react'
 import styled from 'styled-components'
 import { ProductType } from '../types'
+import { getColor } from '../utils'
 
 interface ColorRoundProps {
   background?: string
@@ -42,22 +43,13 @@ const Title = styled(TextItem)`
   letter-spacing: 5px;
 `
 
-interface ComponentProps {
+interface ItemCardProps {
   item: ProductType
 }
-export const ItemCard: FC<ComponentProps> = memo(({ item }) => {
+export const ItemCard: FC<ItemCardProps> = memo(({ item }) => {
   const name = item.name.split(item.color.id)
 
-  const getColor = () => {
-    if (item.color.id === 'Rose Gold') {
-      return '#FADBD8'
-    }
-    if (item.color.id === 'Silver') {
-      return '#D6DBDF'
-    }
-    return null
-  }
-  const color = getColor()
+  const color = getColor(item.color.id)
 
   return (
     <Container>

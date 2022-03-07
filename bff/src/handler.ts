@@ -15,10 +15,10 @@ export const products = async () => {
   )
   const [products, images] = await Promise.all([productsPromise, imagesPromise])
 
-  // const combinedProducts = combineProducts(products.products, images.images)
+  const combinedProducts = combineProducts(products.products, images.images)
 
   return {
     statusCode: 200,
-    body: JSON.stringify(images),
+    body: JSON.stringify(combinedProducts),
   }
 }
