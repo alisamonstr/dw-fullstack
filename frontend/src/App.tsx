@@ -12,13 +12,13 @@ const App = () => {
 
   useEffect(() => {
     getProducts()
-  }, [])
+  }, [getProducts])
 
   useEffect(() => {
     if (!categories.find((c) => c.value === category)) {
       navigate('/watch')
     }
-  }, [category])
+  }, [category, navigate])
 
   const filteredProducts = products.filter((item) => item.type === category)
 
