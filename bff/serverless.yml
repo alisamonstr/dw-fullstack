@@ -15,15 +15,7 @@ functions:
           method: get
           cors:
             origin: '*'
-            headers:
-              - Content-Type
-              - X-Amz-Date
-              - Authorization
-              - X-Api-Key
-              - X-Amz-Security-Token
-              - X-Amz-User-Agent
-              - Access-Control-Allow-Origin
-
+            headers: '*'
 
 plugins:
   - serverless-esbuild

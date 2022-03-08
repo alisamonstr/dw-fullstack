@@ -11,8 +11,10 @@ const App = () => {
   const { products, isFetched, getProducts } = useContext(ProductsContext)
 
   useEffect(() => {
-    getProducts()
-  }, [getProducts])
+    if (!isFetched) {
+      getProducts()
+    }
+  }, [getProducts, isFetched])
 
   useEffect(() => {
     if (!categories.find((c) => c.value === category)) {

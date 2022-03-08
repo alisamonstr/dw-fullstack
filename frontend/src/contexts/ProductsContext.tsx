@@ -1,4 +1,11 @@
-import { createContext, FC, memo, ReactNode, useState } from 'react'
+import {
+  createContext,
+  FC,
+  memo,
+  ReactNode,
+  useCallback,
+  useState,
+} from 'react'
 import { BASE_URL } from '../constants'
 import { ProductType } from '../types'
 
@@ -19,14 +26,14 @@ const ProductsProvider: FC<ProductsProviderProps> = memo(({ children }) => {
   const [products, setProducts] = useState<ProductType[]>([])
   const [isFetched, setIsFetched] = useState<boolean>(false)
 
-  const getProducts = async () => {
+  const getProducts = useCallback(async () => {
     await fetch(`${BASE_URL}`)
       .then((res) => res.json())
       .then((res) => {
         setProducts(res)
         setIsFetched(true)
       })
-  }
+  }, [setProducts, setIsFetched])
 
   return (
     <ProductsContext.Provider value={{ products, getProducts, isFetched }}>

@@ -4,7 +4,7 @@ import { combineProducts } from './utils'
 
 const BASE_URL = 'https://assignment.dwbt.tech'
 
-export const products = async () => {
+export const products = async (event) => {
   const productsUrl = `${BASE_URL}/products`
   const imagesUrl = `${BASE_URL}/images`
   const productsPromise = fetch(productsUrl).then(
@@ -18,6 +18,10 @@ export const products = async () => {
   const combinedProducts = combineProducts(products.products, images.images)
 
   return {
+    headers: {
+      ...event.headers,
+      'Access-Control-Allow-Origin': '*',
+    },
     statusCode: 200,
     body: JSON.stringify(combinedProducts),
   }
