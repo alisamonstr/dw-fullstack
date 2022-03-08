@@ -10,7 +10,20 @@ functions:
   products:
     handler: src/handler.products
     events:
-      - http: GET /
+      - http:
+          path: /
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Origin
+
 
 plugins:
   - serverless-esbuild
