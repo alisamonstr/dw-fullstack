@@ -4,11 +4,17 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { ProductsProvider } from './contexts'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 ReactDOM.render(
   <React.StrictMode>
     <ProductsProvider>
-      <App />
+      <Router>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path=":category" element={<App />} />
+        </Routes>
+      </Router>
     </ProductsProvider>
   </React.StrictMode>,
   document.getElementById('root'),

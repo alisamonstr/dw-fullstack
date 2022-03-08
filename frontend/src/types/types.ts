@@ -29,8 +29,3 @@ export interface ProductType {
   type: string
   _links: LinksType
 }
-
-export interface CategoryType {
-  value: string
-  title: string
-}

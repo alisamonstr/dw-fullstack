@@ -1,24 +1,35 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Header } from './components/Header'
 import { ProductsContext } from './contexts'
 import { ProductsTable } from './components/ProductsTable'
 import { categories } from './constants'
 
 const App = () => {
-  const [activeCategory, setActiveCategory] = useState(categories[1])
-  const { getProducts } = useContext(ProductsContext)
+  const navigate = useNavigate()
+  const { category = '' } = useParams()
+  const { products, isFetched, getProducts } = useContext(ProductsContext)
 
   useEffect(() => {
     getProducts()
   }, [])
 
+  useEffect(() => {
+    if (!categories.find((c) => c.value === category)) {
+      navigate('/watch')
+    }
+  }, [category])
+
+  const filteredProducts = products.filter((item) => item.type === category)
+
   return (
     <>
-      <Header
-        setActiveCategory={setActiveCategory}
-        activeCategory={activeCategory}
+      <Header />
+      <ProductsTable
+        products={filteredProducts}
+        category={category}
+        isFetched={isFetched}
       />
-      <ProductsTable activeCategory={activeCategory} />
     </>
   )
 }

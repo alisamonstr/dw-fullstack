@@ -1,9 +1,8 @@
-import React, { FC, memo, useContext } from 'react'
-import styled from 'styled-components'
+import React, { FC, memo } from 'react'
+import styled from 'styled-components/macro'
 import { Container, ContentWrapper } from './styles'
-import { ProductsContext } from '../contexts'
-import { CategoryType } from '../types'
 import { ItemCard } from './ItemCard'
+import { ProductType } from '../types'
 
 const ComponentContainer = styled(Container)`
   padding: 50px 0;
@@ -12,35 +11,32 @@ const Content = styled(ContentWrapper)`
   justify-content: space-between;
   flex-wrap: wrap;
   height: 100%;
+  @media (max-width: 600px) {
+    justify-content: center;
+  }
 `
 
 interface ProductsTableProps {
-  activeCategory: CategoryType
+  products: ProductType[]
+  isFetched: boolean
+  category: string
 }
 
 export const ProductsTable: FC<ProductsTableProps> = memo(
-  ({ activeCategory }) => {
-    const { products, isFetched } = useContext(ProductsContext)
-
-    const filteredProducts = products.filter(
-      (item) => item.type === activeCategory.value,
-    )
-
+  ({ products, category, isFetched }) => {
     if (!isFetched) {
       return (
         <ComponentContainer>
-          <Content>Loading...</Content>
+          <Content data-testid="loading">Loading...</Content>
         </ComponentContainer>
       )
     }
 
-    if (!filteredProducts.length && isFetched) {
+    if (!products.length && isFetched) {
       return (
         <ComponentContainer>
           <Content>
-            {`We don't have ${
-              activeCategory.title || 'these products'
-            } at this moment.`}
+            {`We don't have ${category || 'these products'} at this moment.`}
           </Content>
         </ComponentContainer>
       )
@@ -48,7 +44,7 @@ export const ProductsTable: FC<ProductsTableProps> = memo(
     return (
       <ComponentContainer>
         <Content>
-          {filteredProducts.map((item) => (
+          {products.map((item) => (
             <ItemCard item={item} key={item.sku} />
           ))}
         </Content>
